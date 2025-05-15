@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Worker</title>
+    <!-- Подключение Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        /* Дополнительные стили */
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .btn-secondary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-secondary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .btn-back {
+            margin-left: 10px;
+            color: #007bff;
+        }
+
+        .alert {
+            text-align: center;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <!-- Заголовок страницы -->
+    <h2>Edit Worker</h2>
+
+    <!-- Message block для ошибок и уведомлений -->
+    <div th:if="${message}" class="alert alert-warning">
+        <span th:text="${message}"></span>
+    </div>
+
+    <div class="row">
+        <!-- Форма для редактирования работника -->
+        <form method="post" th:action="@{/editWorker}">
+            <input type="hidden" name="id" th:value="${worker.id}">
+
+            <!-- Поле для кода работника -->
+            <div class="mb-4">
+                <label class="form-label">Worker Code</label>
+                <input type="text" class="form-control" name="code" required th:value="${worker.code}" maxlength="10">
+            </div>
+
+            <!-- Поле для фамилии работника -->
+            <div class="mb-4">
+                <label class="form-label">Surname</label>
+                <input type="text" class="form-control" name="surname" required th:value="${worker.surname}" title="Please enter a valid surname using only English letters." pattern="^[A-Za-z]+$">
+            </div>
+
+            <!-- Поле для имени работника -->
+            <div class="mb-4">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" name="name" required th:value="${worker.name}" title="Please enter a valid name using only English letters." pattern="^[A-Za-z]+$">
+            </div>
+
+            <!-- Поле для даты начала работы -->
+            <div class="mb-4">
+                <label class="form-label">Start Work Date</label>
+                <input type="date" class="form-control" name="startWork" required th:value="${worker.startWork}">
+            </div>
+
+            <!-- Поле для даты окончания работы (необязательно) -->
+            <div class="mb-4">
+                <label class="form-label">End Work Date (optional)</label>
+                <input type="date" class="form-control" name="endWork" th:value="${worker.endWork}">
+            </div>
+
+            <!-- Поле для выбора департамента -->
+            <div class="mb-4">
+                <label class="form-label">Department</label>
+                <select class="form-control" name="department" required>
+                    <option th:each="department : ${departments}"
+                            th:value="${department.id}"
+                            th:text="${department.nameDep}"
+                            th:selected="${worker.department.id == department.id}">
+                    </option>
+                </select>
+            </div>
+
+            <!-- Кнопка для отправки формы и кнопка возврата -->
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-secondary">Save</button>
+                <a th:href="@{/allWorkers}" class="btn btn-back">Back to table</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Подключение Bootstrap JS и Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

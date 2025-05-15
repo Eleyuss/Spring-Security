@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration</title>
+</head>
+<style>
+    /* Общий стиль для страницы */
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f4f4f9; /* Слегка сероватый фон */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h1 {
+        color: #1e3d58; /* Темно-синий цвет */
+        margin-bottom: 20px;
+        font-size: 2rem;
+    }
+
+    /* Стиль для формы */
+    form {
+        background-color: #fff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 350px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    label {
+        font-size: 1rem;
+        color: #1e3d58; /* Темно-синий цвет */
+        margin-bottom: 5px;
+    }
+
+    input {
+        padding: 12px;
+        font-size: 1rem;
+        border: 1px solid #d1d1d1; /* Светло-серая граница */
+        border-radius: 6px;
+        width: 100%;
+        background-color: #f9f9f9;
+        transition: border-color 0.3s ease, background-color 0.3s ease;
+    }
+
+    input:focus {
+        border-color: #3a86ff; /* Синий цвет для фокуса */
+        background-color: #fff;
+    }
+
+    /* Стиль для кнопки */
+    button {
+        background-color: #3a86ff; /* Синий цвет кнопки */
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 1.1rem;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #2c6bd3; /* Темнее при наведении */
+    }
+
+    /* Стиль для ссылок */
+    a {
+        color: #3a86ff; /* Синий цвет ссылки */
+        font-size: 1rem;
+        text-decoration: none;
+        margin-top: 15px;
+        text-align: center;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    /* Сообщения об ошибках */
+    .error-message {
+        color: #e53935; /* Красный цвет для ошибок */
+        font-size: 1rem;
+        text-align: center;
+        margin-top: 10px;
+    }
+</style>
+<body>
+<h1>Registration</h1>
+
+<!-- Сообщение об ошибке -->
+<div th:if="${errorMessage}" class="error-message" th:text="${errorMessage}"></div>
+
+<!-- Форма регистрации -->
+<form th:action="@{/register}" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required/>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required/>
+
+    <button type="submit">Register</button>
+</form>
+
+<!-- Ссылка на страницу входа -->
+<a href="/login">Already have an account? Log in</a>
+
+</body>
+</html>
